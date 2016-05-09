@@ -8,6 +8,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.tiantian.springintejms.dao.TestDao;
 
@@ -16,6 +17,10 @@ public class ConsumerMessageListener implements MessageListener {
 
 	@Autowired
 	private TestDao testDao;
+	
+	@Autowired
+	@Qualifier("testDao2") 
+	private TestDao testDao2;
 	
 	private int count = 0;
 	
@@ -28,6 +33,7 @@ public class ConsumerMessageListener implements MessageListener {
 				System.out.println("消息内容是：" + text);
 				System.out.println("当前count的值是：" + count);
 				testDao.insert(text + count);
+				testDao2.insert(text + count);
 				if (count == 0) {
 					count ++;
 					throw new RuntimeException("Error! 出错啦！");

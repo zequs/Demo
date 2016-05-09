@@ -19,18 +19,77 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<bean id="jdbcTemplate2" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource2"/>
+	</bean>
+    
+    <!-- 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
     
     <property name="jndiName">
       <value>java:comp/env/jdbc/zhidet</value>
     </property>
   </bean>
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
+     -->
 	<!-- 
 	 <jee:jndi-lookup jndi-name="jdbc/mysql" id="dataSource"/>
 	 -->
+   
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+   <bean id="abstractXADataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" 
+             destroy-method="close" abstract="true"> 
+        <property name="xaDataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource"/> 
+        <property name="poolSize" value="10" /> 
+        <property name="minPoolSize" value="10"/> 
+        <property name="maxPoolSize" value="30"/> 
+        <property name="borrowConnectionTimeout" value="60"/> 
+        <property name="reapTimeout" value="20"/> 
+        <!-- 最大空闲时间 --> 
+        <property name="maxIdleTime" value="60"/> 
+        <property name="loginTimeout" value="60"/>
+        <property name="logWriter" value="60"/>
+        <property name="testQuery">
+            <value>select 1</value>
+        </property>
+        
+    </bean> 
+
+    <bean id="dataSource" parent="abstractXADataSource">
+    <!-- value只要两个数据源不同就行，随便取名 -->
+        <property name="uniqueResourceName" value="mysql/sitestone" />
+        <property name="xaDataSourceClassName"
+            value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
+        <property name="xaProperties">
+            <props>
+                <prop key="URL">${jdbc.url}</prop>
+                <prop key="user">${jdbc.username}</prop>
+                <prop key="password">${jdbc.password}</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="dataSource2" parent="abstractXADataSource">
+<!-- value只要两个数据源不同就行，随便取名 -->
+        <property name="uniqueResourceName" value="mysql/sitesttwo" />
+        <property name="xaDataSourceClassName"
+            value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
+        <property name="xaProperties">
+            <props>
+                <prop key="URL">${jdbc.url2}</prop>
+                <prop key="user">${jdbc.username2}</prop>
+                <prop key="password">${jdbc.password2}</prop>
+            </props>
+        </property>
+    </bean>
     <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
         init-method="init" destroy-method="close">
         <description>UserTransactionManager</description>
@@ -44,6 +103,7 @@
 	<bean id="jtaTransactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
         <property name="transactionManager" ref="atomikosTransactionManager"/>
          <property name="userTransaction" ref="atomikosUserTransaction"/>
+         <property name="allowCustomIsolationLevels" value="true" /> 
     </bean>
     
 	<tx:annotation-driven transaction-manager="jtaTransactionManager"/>
@@ -57,7 +117,7 @@
 	</bean>
 	
 	<!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->
-	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQXAConnectionFactory">
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
 		<property name="brokerURL" value="tcp://localhost:61616"/>
 	</bean>
 	
@@ -188,5 +248,6 @@
 
 	<!-- 类型转换器 -->
 	<bean id="emailMessageConverter" class="com.tiantian.springintejms.converter.EmailMessageConverter"/>
+	<bean id="testDao2" class="com.tiantian.springintejms.dao.impl.TestDaoImpl2"/>
 
 </beans>
