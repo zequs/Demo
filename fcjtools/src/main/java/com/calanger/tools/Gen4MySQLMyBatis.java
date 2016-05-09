@@ -31,14 +31,14 @@ public class Gen4MySQLMyBatis {
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 //            dataSource.setUrl("jdbc:mysql://120.26.197.237:3306/fcj?useUnicode=true&characterEncoding=UTF-8"); // 数据库IP
-//            dataSource.setUsername("fcj");
-//            dataSource.setPassword("123456");
+//            dataSource.setUsername("****");
+//            dataSource.setPassword("******");
         /*  dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/zhidet?useUnicode=true&characterEncoding=UTF-8"); // 数据库IP
           dataSource.setUsername("root");
           dataSource.setPassword("");*/
           dataSource.setUrl("jdbc:mysql://120.26.197.237:3306/zhidet?useUnicode=true&characterEncoding=UTF-8"); // 测试数据库IP
-          dataSource.setUsername("zhidet");
-          dataSource.setPassword("123456");
+          dataSource.setUsername("******");
+          dataSource.setPassword("*****");
 
             jdbcTemplate = new JdbcTemplate(dataSource);
         }

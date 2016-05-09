@@ -22,7 +22,7 @@ public class LoginKaixin {
                 "Mozilla/4.0 (compatible; MSIE 6.0; Windows 2000)");
         NameValuePair url = new NameValuePair("url", "/home/");
         NameValuePair username = new NameValuePair("email", "443236745@qq.com");
-        NameValuePair password = new NameValuePair("password", "20051225");
+        NameValuePair password = new NameValuePair("password", "*****");
         post.setRequestBody(new NameValuePair[] { ie, url, username, password });
         client.executeMethod(post);
         System.out.println("******************************登录******************************");

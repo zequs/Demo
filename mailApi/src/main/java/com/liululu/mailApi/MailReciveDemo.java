@@ -382,13 +382,13 @@ public class MailReciveDemo {
         props.setProperty("mail.smtp.auth", "true");
         Session session = Session.getDefaultInstance(props,null);
         
-//        URLName urlname = new URLName("pop3","pop.163.com",25,null,"lulusayhi01@163.com","cxcx507");
+//        URLName urlname = new URLName("pop3","pop.163.com",25,null,"lulusayhi01@163.com","*****");
 //        Store store = session.getStore(urlname);
 //        store.connect();
         
         String host = "pop.163.com";
         String username = "lulusayhi01@163.com";
-        String password = "cxcx507";
+        String password = "******";
         // Get the store
         Store store = session.getStore("pop3");
         store.connect(host, username, password);

@@ -9,7 +9,7 @@ public class MailSendDemo {
      mailInfo.setMailServerPort("25");    
      mailInfo.setValidate(true);    
      mailInfo.setUserName("zequs163@163.com");
-     mailInfo.setPassword("1685701");//您的邮箱密码    
+     mailInfo.setPassword("****");//您的邮箱密码    
      mailInfo.setFromAddress("zequs163@163.com");
      mailInfo.setToAddress("563248403@qq.com");
      mailInfo.setSubject("设置邮箱标题 如http://www.guihua.org 中国桂花网");

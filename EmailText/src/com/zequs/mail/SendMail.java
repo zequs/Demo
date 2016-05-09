@@ -75,7 +75,7 @@ public class SendMail {
 			email.setCharset("utf-8");//设置编码集
 			email.addTo("563248403@qq.com");//收件人邮箱
 			email.setFrom("zequs163@163.com");//发送人邮箱
-			email.setAuthentication("zequs163@163.com", "1685701");//发件人的用户名与密码
+			email.setAuthentication("zequs163@163.com", "******");//发件人的用户名与密码
 			email.setSubject("这是一封测试邮件，请不要回复！");//发送主题（邮件主题）
 			email.setMsg("<b><a href=\"http://www.google.com\"> 邮件测试内容</a></b>");//邮件内容
 			
@@ -97,7 +97,7 @@ public class SendMail {
             email.setCharset("utf-8");//设置编码集
             email.addTo("563248403@qq.com");//收件人邮箱
             email.setFrom("zequs163@163.com");//发送人邮箱
-            email.setAuthentication("zequs163@163.com", "1685701");//发件人的用户名与密码
+            email.setAuthentication("zequs163@163.com", "******");//发件人的用户名与密码
             email.setSubject("这是一封测试邮件，请不要回复！");//发送主题（邮件主题）
             email.setMsg("<b><a href=\"http://www.google.com\"> 邮件测试内容</a></b>");//邮件内容
             email.send();//发送
